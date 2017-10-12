@@ -27,6 +27,7 @@ connect_remote_notebook(){
 }
 
 	# General
+alias clang++='clang++ -Wl,-w'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -54,8 +55,9 @@ alias sshx="TERM=xterm ssh -Y"
 alias sshnokey="ssh -X -o PubkeyAuthentication=no"
 
 	# vim
-alias vimsrc="vim **/*.c(N) **/*.h(N) **/*.cpp(N) **/*.hpp(N) **/*.hxx(N)"
-alias vimtex='vim --servername $(basename *.tex.latexmain .tex.latexmain) *.tex content/*.tex(N) settings/*.tex(N)'
+alias vim="mvim -v"
+alias vimsrc="mvim -v **/*.c(N) **/*.h(N) **/*.cpp(N) **/*.hpp(N) **/*.hxx(N)"
+alias vimtex='mvim --servername SYNCTEX *.tex(N) content/*.tex(N) settings/*.tex(N)'
 
 	# apt
 alias apts="apt-cache search"
@@ -77,7 +79,7 @@ tmuxdev () {
   tmux neww -n Coding -c ~/Dropbox/Coding
   tmux neww -n System -c ~/Dropbox
   tmux neww -n System -c ~/Dropbox
-  tmux neww -n Jupyter -c ~/Dropbox/Coding/Notebooks /home/nwentzel/opt/triqs/bin/ipytriqs_notebook
+  tmux neww -n Jupyter -c ~/Dropbox/Coding/Notebooks /Users/nwentzel/opt/triqs/bin/ipytriqs_notebook
   tmux neww -n Latex -c ~/Dropbox/Latex
   tmux neww -n Latex -c ~/Dropbox/Latex
   tmux selectw -t 1
@@ -87,14 +89,14 @@ tmuxdev () {
 
         # Develop
 alias make="make -j 8"
-alias triqs++='g++ -std=c++17 -ltriqs -lmpi -lmpi_cxx -lpython2.7 -lblas -llapack -lgtest -lhdf5 -Wno-register -DHAS_OPTIONAL_HEADER' 
+alias triqs++='clang++ -std=c++17 -ltriqs -lmpi -lpython2.7 -lblas -llapack -lgtest -lhdf5 -Wno-register -DHAS_OPTIONAL_HEADER' 
 alias activate='source ~/opt/python/bin/activate'
 alias ctags='ctags -R --options=$HOME/.ctagsrc'
 alias valmem='valgrind --leak-check=full --max-stackframe=4000000'
 alias cmdbg='cmake -DCMAKE_BUILD_TYPE=Debug'
 prof() {
   rm -f $1.prof*
-  LD_PRELOAD=/home/nwentzel/opt/gperftools/lib/libprofiler.so CPUPROFILE=$1.prof $1
+  DYLD_INSERT_LIBRARIES=/usr/local/lib/libprofiler.dylib CPUPROFILE=$1.prof $1
 }
 pprint() {
   pprof --text $1 $1.prof > $1.prof.txt
@@ -103,7 +105,7 @@ pprint() {
 }
 hprof() {
   rm -f $1.hprof*
-  LD_PRELOAD=/home/nwentzel/opt/gperftools/lib/libtcmalloc.so HEAPPROFILE=$1.hprof $1
+  DYLD_INSERT_PRELOAD=/usr/local/lib/libtcmalloc.dylib HEAPPROFILE=$1.hprof $1
 }
 hpprint() {
   if [ "$#" -eq 1 ]; then

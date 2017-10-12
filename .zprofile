@@ -4,9 +4,9 @@ addlib () {
   if ! echo $CPATH | egrep -q "(^|:)$1/include($|:)" ; then
     export CPATH=$1/include${CPATH:+:$CPATH}
   fi
-  if ! echo $LD_LIBRARY_PATH | egrep -q "(^|:)$1/lib($|:)" ; then
-    export LD_LIBRARY_PATH=$1/lib:$1/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
-  fi
+  #if ! echo $DYLD_LIBRARY_PATH | egrep -q "(^|:)$1/lib($|:)" ; then
+    #export DYLD_LIBRARY_PATH=$1/lib:$1/lib64${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}
+  #fi
   if ! echo $LIBRARY_PATH | egrep -q "(^|:)$1/lib($|:)" ; then
     export LIBRARY_PATH=$1/lib:$1/lib64${LIBRARY_PATH:+:$LIBRARY_PATH}
   fi
