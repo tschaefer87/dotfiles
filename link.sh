@@ -24,22 +24,7 @@ function linkFile() {
 
 # Link files to home and exclude the ones containing certain strings
 
-for F in $(ls -a1 | \
-    grep -v '.git$' | \
-    grep -v disabled | \
-    grep -v .gitmodules | \
-    grep -v .gitignore | \
-    grep -v .dropbox | \
-    grep -v .bashrc | \
-    grep -v setup.sh | \
-    grep -v link.sh | \
-    grep -v Desktop | \
-    grep -v pkglst | \
-    grep -v aurlst | \
-    grep -v piplst | \
-    grep -v brewlst | \
-    egrep -v "^..?$" | \
-    egrep -v "^.*un~$" | \
-    grep -v .DS_Store \
-    ); do linkFile $F
+for F in .zshrc .zprofile .oh-my-zsh .shrc .glob_git_ignore .gitconfig
+do 
+	linkFile $F
 done
